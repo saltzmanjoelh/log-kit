@@ -43,7 +43,7 @@ public struct LogCollector: LogHandler {
         private var queue = DispatchQueue.init(label: "Log Queue")
         private var logs: [Entry] = []
         
-        init() {}
+        public init() {}
 
         public var allEntries: [Entry] {
             var result = [Entry]()
