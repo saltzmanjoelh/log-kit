@@ -25,6 +25,8 @@
 import Foundation
 import Logging
 
+/// This is a LogHandler, you should call `Logger.CollectingLogger` to use it.
+/// When it's told to log, it will send it to the output as well as collect it in the logs collection.
 public struct LogCollector: LogHandler {
     public var metadata: Logger.Metadata = [:]
     public var logLevel: Logger.Level
@@ -41,7 +43,7 @@ public struct LogCollector: LogHandler {
         private var queue = DispatchQueue.init(label: "Log Queue")
         private var logs: [Entry] = []
         
-        public init() { }
+        init() {}
 
         public var allEntries: [Entry] {
             var result = [Entry]()
@@ -78,16 +80,28 @@ public struct LogCollector: LogHandler {
         }
     }
 
-    public init(_ logCollection: LogCollector.Logs, logLevel: Logger.Level = .info) {
+    init(_ logs: LogCollector.Logs = .init(), logLevel: Logger.Level = .info) {
         self.logLevel = logLevel
-        self.logs = logCollection
+        self.logs = logs
         self.internalHandler = StreamLogHandler.standardOutput(label: "_internal_")
         self.internalHandler.logLevel = logLevel
     }
 
-    public func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, source: String, file: String, function: String, line: UInt) {
+    public func log(level: Logger.Level,
+                    message: Logger.Message,
+                    metadata: Logger.Metadata? = nil,
+                    source: String = "",
+                    file: String = #file,
+                    function: String = #function,
+                    line: UInt = #line) {
         let metadata = self.metadata.merging(metadata ?? [:]) { $1 }
-        self.internalHandler.log(level: level, message: message, metadata: metadata, source: source, file: file, function: function, line: line)
+        self.internalHandler.log(level: level,
+                                 message: message,
+                                 metadata: metadata,
+                                 source: source,
+                                 file: file,
+                                 function: function,
+                                 line: line)
         self.logs.append(level: level, message: message, metadata: metadata)
     }
 
