@@ -80,7 +80,7 @@ public struct LogCollector: LogHandler {
         }
     }
 
-    init(_ logs: LogCollector.Logs = .init(), logLevel: Logger.Level = .info) {
+    public init(_ logs: LogCollector.Logs = .init(), logLevel: Logger.Level = .info) {
         self.logLevel = logLevel
         self.logs = logs
         self.internalHandler = StreamLogHandler.standardOutput(label: "_internal_")
