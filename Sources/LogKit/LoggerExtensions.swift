@@ -88,9 +88,9 @@ extension Logger {
             .replacingOccurrences(of: "]", with: "")
             .components(separatedBy: " ")
         guard let testClass = parts.first,
-              let testName = parts.last,
-              testClass != testName
+              let testFunction = parts.last,
+              testClass != testFunction
         else { throw LogKitError.invalidTestName(testName) }
-        return "\(testClass).\(testName)"
+        return "\(testClass).\(testFunction)"
     }
 }
