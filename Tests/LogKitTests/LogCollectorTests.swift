@@ -59,7 +59,7 @@ class LogCollectorTests: XCTestCase {
     func testCollectingLoggerHelper() {
         // Given a logger from Logger.CollectingLogger
         let handler = LogCollector()
-        var logger = Logger.CollectingLogger(label: "test", logCollector: handler)
+        var logger = CollectingLogger(label: "test", logCollector: handler)
         logger.logLevel = .trace
         
         // When a log is made

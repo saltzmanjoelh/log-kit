@@ -25,8 +25,12 @@
 import Foundation
 import Logging
 
-/// This is a LogHandler, you should call `Logger.CollectingLogger` to use it.
+/// This is a LogHandler, you should call `CollectingLogger(label:logCollector:)` to use it.
 /// When it's told to log, it will send it to the output as well as collect it in the logs collection.
+/// ```swift
+/// let collector = LogCollector()
+/// CollectingLogger(label: "Example", logCollector: collector)
+/// ```
 public struct LogCollector: LogHandler {
     public var metadata: Logger.Metadata = [:]
     public var logLevel: Logger.Level

@@ -47,15 +47,16 @@ final class LoggerTests: XCTestCase {
         // Given a valid test name is used with setTestName
         let testClass = "TestClass"
         let testName = "testName"
-        var logger = Logger.CollectingLogger(label: "Test")
+        let collector = LogCollector()
+        var logger = CollectingLogger(label: "Test", logCollector: collector)
         logger.setTestName("-[\(testClass) \(testName)]")
         
         // When calling log
         let value = UUID().uuidString
-        logger.debug("\(value)")
+        logger.info("\(value)")
         
         // Then the test name should be in the logs
-        let entry = Logger.sharedCollector.logs.filter { entry in
+        let entry = collector.logs.filter { entry in
             entry.message.contains(value)
         }.first
         XCTAssertNotNil(entry)
@@ -64,15 +65,16 @@ final class LoggerTests: XCTestCase {
     }
     func testSetTestNameWithInvalidInput() {
         // Given a valid test name is used with setTestName
-        var logger = Logger.CollectingLogger(label: "Test")
+        let collector = LogCollector()
+        var logger = CollectingLogger(label: "Test", logCollector: collector)
         logger.setTestName("invalid")
         
         // When calling log
         let value = UUID().uuidString
-        logger.debug("\(value)")
+        logger.info("\(value)")
         
         // Then the "InvalidTestName" should be in the logs
-        let entry = Logger.sharedCollector.logs.filter { entry in
+        let entry = collector.logs.filter { entry in
             entry.message.contains(value)
         }.first
         XCTAssertNotNil(entry)
