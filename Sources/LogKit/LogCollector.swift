@@ -12,10 +12,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 //
 //  LogCollector.swift
-//  
+//
 //
 //  Created by Joel Saltzman on 3/24/21.
 //
@@ -44,9 +43,9 @@ public struct LogCollector: LogHandler {
             public var metadata: [String: String]
         }
 
-        private var queue = DispatchQueue.init(label: "Log Queue")
+        private var queue = DispatchQueue(label: "Log Queue")
         private var logs: [Entry] = []
-        
+
         public init() {}
 
         public var allEntries: [Entry] {
@@ -68,27 +67,27 @@ public struct LogCollector: LogHandler {
         }
 
         public func filter(_ test: (Entry) -> Bool) -> [Entry] {
-            return self.allEntries.filter { test($0) }
+            return allEntries.filter { test($0) }
         }
 
         public func filter(message: String) -> [Entry] {
-            return self.allEntries.filter { $0.message == message }
+            return allEntries.filter { $0.message == message }
         }
 
         public func filter(metadata: String) -> [Entry] {
-            return self.allEntries.filter { $0.metadata[metadata] != nil }
+            return allEntries.filter { $0.metadata[metadata] != nil }
         }
 
         public func filter(metadata: String, with value: String) -> [Entry] {
-            return self.allEntries.filter { $0.metadata[metadata] == value }
+            return allEntries.filter { $0.metadata[metadata] == value }
         }
     }
 
     public init(_ logs: LogCollector.Logs = .init(), logLevel: Logger.Level = .info) {
         self.logLevel = logLevel
         self.logs = logs
-        self.internalHandler = StreamLogHandler.standardOutput(label: "_internal_")
-        self.internalHandler.logLevel = logLevel
+        internalHandler = StreamLogHandler.standardOutput(label: "_internal_")
+        internalHandler.logLevel = logLevel
     }
 
     public func log(level: Logger.Level,
@@ -97,24 +96,25 @@ public struct LogCollector: LogHandler {
                     source: String = "",
                     file: String = #file,
                     function: String = #function,
-                    line: UInt = #line) {
+                    line: UInt = #line)
+    {
         let metadata = self.metadata.merging(metadata ?? [:]) { $1 }
-        self.internalHandler.log(level: level,
-                                 message: message,
-                                 metadata: metadata,
-                                 source: source,
-                                 file: file,
-                                 function: function,
-                                 line: line)
-        self.logs.append(level: level, message: message, metadata: metadata)
+        internalHandler.log(level: level,
+                            message: message,
+                            metadata: metadata,
+                            source: source,
+                            file: file,
+                            function: function,
+                            line: line)
+        logs.append(level: level, message: message, metadata: metadata)
     }
 
     public subscript(metadataKey key: String) -> Logger.Metadata.Value? {
         get {
-            return self.metadata[key]
+            return metadata[key]
         }
         set {
-            self.metadata[key] = newValue
+            metadata[key] = newValue
         }
     }
 }

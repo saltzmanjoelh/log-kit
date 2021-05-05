@@ -1,6 +1,6 @@
 //
 //  CollectingLogger.swift
-//  
+//
 //
 //  Created by Joel Saltzman on 4/29/21.
 //
