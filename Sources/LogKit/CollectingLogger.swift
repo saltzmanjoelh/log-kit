@@ -8,6 +8,8 @@
 import Foundation
 import Logging
 
-public func CollectingLogger(label: String, logCollector: LogCollector) -> Logger {
-    return Logger(label: label, factory: { _ in logCollector })
+public func CollectingLogger(label: String, logCollector: LogCollector, logLevel: Logger.Level = .info) -> Logger {
+    var result = Logger(label: label, factory: { _ in logCollector })
+    result.logLevel = logLevel
+    return result
 }
