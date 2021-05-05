@@ -1,5 +1,9 @@
 # LogKit
 
+[<img src="http://img.shields.io/badge/swift-5.1-brightgreen.svg" alt="Swift 5.1" />](https://swift.org)
+[<img src="https://github.com/saltzmanjoelh/LogKit/workflows/Swift/badge.svg" />](https://github.com/saltzmanjoelh/LogKit/actions)
+[<img src="https://codecov.io/gh/saltzmanjoelh/LogKit/branch/main/graph/badge.svg" alt="Codecov Result" />](https://codecov.io/gh/saltzmanjoelh/LogKit)
+
 Just a few things to help out with logging.
  
  ## CollectingLogger
