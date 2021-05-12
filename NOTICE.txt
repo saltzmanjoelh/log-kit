@@ -2,7 +2,7 @@
                             The LogKit Project
                             ========================
 
-Please visit the SwiftLog web site for more information:
+Please visit the LogKit web site for more information:
 
   * https://github.com/saltzmanjoelh/LogKit
 

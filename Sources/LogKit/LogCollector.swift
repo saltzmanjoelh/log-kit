@@ -55,6 +55,9 @@ public struct LogCollector: LogHandler {
             }
             return result
         }
+        public var allMessages: String {
+            return allEntries.map({ $0.message }).joined(separator: "\n")
+        }
 
         public func append(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?) {
             queue.sync {

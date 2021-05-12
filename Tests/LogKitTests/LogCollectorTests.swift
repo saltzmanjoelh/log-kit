@@ -28,7 +28,7 @@ class LogCollectorTests: XCTestCase {
     func testLogWithAdditionalMetadata() {
         // Given a handler with metadata
         var handler = LogCollector()
-        handler[metadataKey: "inital"] = "initial"
+        handler[metadataKey: "initial"] = "initial"
 
         // When log is called with additional metadata
         handler.log(level: .debug, message: "message", metadata: ["updated": "updated"])
@@ -62,12 +62,14 @@ class LogCollectorTests: XCTestCase {
         let handler = LogCollector()
         var logger = CollectingLogger(label: "test", logCollector: handler)
         logger.logLevel = .trace
+        let message =  UUID().uuidString
 
         // When a log is made
-        logger.debug("message")
+        logger.debug("\(message)")
 
         // Then an entry should be created
         XCTAssertNotNil(handler.logs.allEntries.first)
+        XCTAssertTrue(handler.logs.allMessages.contains(message), "Log messages should have contained the value: \"\(message)\"")
     }
 
     static var allTests = [
