@@ -71,10 +71,28 @@ class LogCollectorTests: XCTestCase {
         XCTAssertNotNil(handler.logs.allEntries.first)
         XCTAssertTrue(handler.logs.allMessages().contains(message), "Log messages should have contained the value: \"\(message)\"")
     }
+    
+    func testLevelFilter() {
+        // Given a logs with different levels
+        let handler = LogCollector()
+        var logger = CollectingLogger(label: "test", logCollector: handler)
+        logger.logLevel = .trace
+        logger.trace("message1")
+        logger.error("message2")
+
+        // When filtering logs by level
+        let result = handler.logs.filter(level: .trace)
+
+        // Then only the logs with the matching level should be returned
+        XCTAssertEqual(result.count, 1, "Only one trace level log should have been returned.")
+        XCTAssertEqual(result.first?.message, "message1")
+    }
 
     static var allTests = [
         ("testLog", testLog),
         ("testLogWithAdditionalMetadata", testLogWithAdditionalMetadata),
         ("testMetadata", testMetadata),
+        ("testCollectingLoggerHelper", testCollectingLoggerHelper),
+        ("testLevelFilter", testLevelFilter),
     ]
 }

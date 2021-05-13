@@ -68,6 +68,10 @@ public struct LogCollector: LogHandler {
                 ))
             }
         }
+        
+        public func filter(level: Logger.Level) -> [Entry] {
+            return allEntries.filter { $0.level == level }
+        }
 
         public func filter(_ test: (Entry) -> Bool) -> [Entry] {
             return allEntries.filter { test($0) }
