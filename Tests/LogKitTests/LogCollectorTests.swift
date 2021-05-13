@@ -69,7 +69,7 @@ class LogCollectorTests: XCTestCase {
 
         // Then an entry should be created
         XCTAssertNotNil(handler.logs.allEntries.first)
-        XCTAssertTrue(handler.logs.allMessages.contains(message), "Log messages should have contained the value: \"\(message)\"")
+        XCTAssertTrue(handler.logs.allMessages().contains(message), "Log messages should have contained the value: \"\(message)\"")
     }
 
     static var allTests = [
