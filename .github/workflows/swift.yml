@@ -20,7 +20,7 @@ jobs:
     - name: Convert coverage files
       run: |
         xcrun llvm-cov export -format "lcov" \
-          .build/debug/LogKitPackageTests.xctest/Contents/MacOs/LogKitPackageTests \
+          .build/debug/log-kitPackageTests.xctest/Contents/MacOs/log-kitPackageTests \
           -ignore-filename-regex="\/Tests\/" \
           -instr-profile=.build/debug/codecov/default.profdata > info.lcov  
     - name: Upload to codecov.io
