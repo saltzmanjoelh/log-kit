@@ -88,7 +88,12 @@ public struct LogCollector: LogHandler {
         public func filter(metadata: String, with value: String) -> [Entry] {
             return allEntries.filter { $0.metadata[metadata] == value }
         }
+        
+        public var debugDescription: String {
+            return allMessages()
+        }
     }
+    
 
     public init(_ logs: LogCollector.Logs = .init(), logLevel: Logger.Level = .info) {
         self.logLevel = logLevel

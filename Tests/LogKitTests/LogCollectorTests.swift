@@ -87,6 +87,21 @@ class LogCollectorTests: XCTestCase {
         XCTAssertEqual(result.count, 1, "Only one trace level log should have been returned.")
         XCTAssertEqual(result.first?.message, "message1")
     }
+    
+    func testLogsDebugDescription() {
+        // Given a logs with different levels
+        let handler = LogCollector()
+        var logger = CollectingLogger(label: "test", logCollector: handler)
+        logger.logLevel = .trace
+        logger.trace("message1")
+        logger.error("message2")
+        
+        // When getting the debugDescription of the logs
+        let result = handler.logs.debugDescription
+        
+        // Then the logs should be received
+        XCTAssertEqual(result, "message1\nmessage2")
+    }
 
     static var allTests = [
         ("testLog", testLog),
@@ -94,5 +109,6 @@ class LogCollectorTests: XCTestCase {
         ("testMetadata", testMetadata),
         ("testCollectingLoggerHelper", testCollectingLoggerHelper),
         ("testLevelFilter", testLevelFilter),
+        ("testLogsDebugDescription", testLogsDebugDescription),
     ]
 }
