@@ -65,7 +65,7 @@ public enum LogKitError: Error, CustomStringConvertible {
 
 extension Logger {
     /// In the setup function of your tests, use this to add the test name to the logs.
-    /// It will change the logs of `Logger.default.debug("!!! Logging debug details")`
+    /// It will change the logs of `Logger.myCustomLogger.debug("!!! Logging debug details")`
     /// from looking like this:
     /// `2021-02-28T08:27:53-0800 debug com.apple.dt.xctest.tool : !!! Logging debug details`
     /// into this:
@@ -73,7 +73,7 @@ extension Logger {
     ///
     /// ```swift
     /// override func setUp() {
-    ///     Logger.default.setTestName(self.name)
+    ///     Logger.myCustomLogger.setTestName(self.name)
     /// }
     /// ```
     public mutating func setTestName(_ testName: String) { // -[TestClass testName]

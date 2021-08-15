@@ -33,7 +33,7 @@ let entry = collector.logs.filter { entry in
 ## Logger.setTestName
 
 In the setup function of your tests, use this to add the test name to the logs.
-It will change the logs of `Logger.default.debug("!!! Logging debug details")`  from looking like this: 
+It will change the logs of `Logger.myCustomLogger.debug("!!! Logging debug details")`  from looking like this: 
 > debug com.apple.dt.xctest.tool : !!! Logging debug details
  
 into this:
